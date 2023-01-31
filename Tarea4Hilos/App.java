@@ -31,7 +31,13 @@ public class App {
 
         padrecito.start();
         */
-        porTeclado();
+		
+		try{
+			if (args[0].contains("teclado")) porTeclado();
+		}catch(Exception e){
+			pruebaValoresDef();
+		}
+
     }
 
     public static void porTeclado(){
@@ -96,5 +102,39 @@ public class App {
         padrecito.start();
     }
 
+	public static void pruebaValoresDef(){
+		LinkedList<Figura> listaFiguras = new LinkedList<>();
+        
+        Triangulo triangulo = new Triangulo();
+        Cuadrado cuadrado = new Cuadrado();
+        Trapecio trap = new Trapecio();
+        Rectangulo rectangulo = new Rectangulo();
+
+		triangulo.ladoIzquierdo = 3;
+		triangulo.ladoDerecho = 3;
+		triangulo.base = 3;
+		triangulo.altura = 4;
+
+		cuadrado.lado = 5;
+
+		trap.ladoIzquierdo = 25;
+		trap.ladoDerecho = 25;
+		trap.baseMenor = 30;
+		trap.baseMayor = 40;
+		trap.altura = 25;
+
+		rectangulo.base = 20;
+		rectangulo.altura = 10;
+		
+		listaFiguras.add(triangulo);
+		listaFiguras.add(cuadrado);
+		listaFiguras.add(trap);
+		listaFiguras.add(rectangulo);
+		
+		HiloPadre padrecito = new HiloPadre(listaFiguras);
+
+		padrecito.start();
+
+	}
 
 }
