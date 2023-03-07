@@ -1,7 +1,5 @@
 import java.util.Stack;
 
-import javax.swing.JSpinner.NumberEditor;
-
 public class Madre extends Thread {
     
     Stack <String> pollo = new Stack<String>();
@@ -10,8 +8,11 @@ public class Madre extends Thread {
     ColaPrioridad<Hijo> gemelos = new ColaPrioridad<Hijo>();
     ColaPrioridad<Hijo> hijos = new ColaPrioridad<Hijo>();
 
+
+    ColaPrioridad<Hijo> pendientes = new ColaPrioridad<Hijo>();
+
     public Madre(){
-        prepararPollo(pollo);
+        prepararPollo(pollo,44);
         agregarHijos(hijos);
         System.out.println("piezas de poyo: "+pollo.size());
     }
@@ -25,42 +26,59 @@ public class Madre extends Thread {
             
                 aux = trillizos.poll();
                 aux.start();
+                
     
-                /*try {
+                try {
                     aux.join();
                 } catch (Exception e) {
-                    // TODO: handle exception
-                }*/
+                }
     
             }else if (!cuatrillizos.isEmpty()){
                 aux = cuatrillizos.poll();
                 aux.start();
+                try {
+                    aux.join();
+                } catch (Exception e) {
+                }
                 
             }else if(!gemelos.isEmpty()){
                 aux = gemelos.poll();
                 aux.start();
+                try {
+                    aux.join();
+                } catch (Exception e) {
+                }
                 
             }else{
                 aux = hijos.poll();
                 aux.start();
                 
+                try {
+                    
+                    aux.join();
+                } catch (Exception e) {
+                }
+
+               
+                
             }
         }
     }
-
-    
 
     public void agregarHijos(ColaPrioridad<Hijo> h){
         //trillizos
         trillizos.add(new Hijo(1, pollo));
         trillizos.add(new Hijo(1, pollo));
         trillizos.add(new Hijo(1, pollo));
+
         trillizos.add(new Hijo(2, pollo));
         trillizos.add(new Hijo(2, pollo));
         trillizos.add(new Hijo(2, pollo));
+
         trillizos.add(new Hijo(3, pollo));
         trillizos.add(new Hijo(3, pollo));
         trillizos.add(new Hijo(3, pollo));
+
         trillizos.add(new Hijo(4, pollo));
         trillizos.add(new Hijo(4, pollo));
         trillizos.add(new Hijo(4, pollo));
@@ -70,10 +88,12 @@ public class Madre extends Thread {
         cuatrillizos.add(new Hijo(5, pollo));
         cuatrillizos.add(new Hijo(5, pollo));
         cuatrillizos.add(new Hijo(5, pollo));
+
         cuatrillizos.add(new Hijo(6, pollo));
         cuatrillizos.add(new Hijo(6, pollo));
         cuatrillizos.add(new Hijo(6, pollo));
         cuatrillizos.add(new Hijo(6, pollo));
+
         cuatrillizos.add(new Hijo(7, pollo));
         cuatrillizos.add(new Hijo(7, pollo));
         cuatrillizos.add(new Hijo(7, pollo));
@@ -82,14 +102,19 @@ public class Madre extends Thread {
         //gemelos
         gemelos.add(new Hijo(8, pollo));
         gemelos.add(new Hijo(8, pollo));
+
         gemelos.add(new Hijo(9, pollo));
         gemelos.add(new Hijo(9, pollo));
+
         gemelos.add(new Hijo(10, pollo));
         gemelos.add(new Hijo(10, pollo));
+
         gemelos.add(new Hijo(11, pollo));
         gemelos.add(new Hijo(11, pollo));
+
         gemelos.add(new Hijo(12, pollo));
-        gemelos.add(new Hijo(12,pollo)); 
+        gemelos.add(new Hijo(12, pollo)); 
+
         gemelos.add(new Hijo(13, pollo));
         gemelos.add(new Hijo(13, pollo));
 
@@ -115,9 +140,9 @@ public class Madre extends Thread {
 
     }
 
-    private void prepararPollo(Stack<String> pollito){
-        for(int i = 0; i < 45; i++){
-            pollito.push("pieza de pollo ".concat(String.valueOf(i+1)));
+    private void prepararPollo(Stack<String> pollito, int piezas){
+        for(int i = 1; i <= piezas; i++){
+            pollito.push("pieza de pollo ".concat(String.valueOf(i)));
         }
     }
 }
