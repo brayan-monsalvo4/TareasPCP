@@ -3,19 +3,19 @@ import java.util.Stack;
 
 public class Hijo extends Thread implements Comparable<Hijo>{
     private int fechaNacimiento;
-    private Stack<String> piezasPoyo;
+    private StackConcurrente<String> piezasPoyo;
 
-    public Hijo(int fechaNacimiento, Stack<String> piezasPollo){
+    public Hijo(int fechaNacimiento, StackConcurrente<String> piezasPollo, String name){
         this.fechaNacimiento = fechaNacimiento;
         this.piezasPoyo = piezasPollo;
-        setName("hilo 1");
+        setName(name);
     }
 
     @Override
     public void run(){
         boolean ok = false;
         try{
-            System.out.println(fechaNacimiento+" tomo "+piezasPoyo.pop());
+            System.out.println(getName()+" tomo "+piezasPoyo.pop());
             ok = true;
         }catch(Exception e){
             ok = false;
@@ -29,6 +29,4 @@ public class Hijo extends Thread implements Comparable<Hijo>{
         return Integer.compare(this.fechaNacimiento, hermano.fechaNacimiento);
     }
 
-
-    
 }
