@@ -25,4 +25,8 @@ public class ColaPrioridad <T extends Comparable<T>> {
     public int getSize(){
         return numero;
     }
+
+    public T peek(){
+        return this.priorityQueue.peek();
+    }
 }
